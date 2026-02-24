@@ -1,0 +1,86 @@
+// platform/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum HealthStatus {
+  HEALTHY
+  DISEASE_RISK
+  CRITICAL
+}
+
+enum DroneStatus {
+  ACTIVE
+  CHARGING
+  MAINTENANCE
+}
+
+// Models
+
+model RubberTree {
+  id                 String   @id // e.g., "RUB-Z01-0023"
+  location           Json     // GeoJSON Point { type: "Point", coordinates: [lng, lat] }
+  age                Float
+  height             Float
+  crownDiameter      Float
+  carbonStock        Float    // Calculated
+  healthStatus       HealthStatus
+  lastInspectionDate DateTime @default(now())
+
+  reports            AnalysisReport[]
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model SugarcanePlot {
+  id               String   @id @default(uuid())
+  boundary         Json     // GeoJSON Polygon
+  ndviScore        Float
+  lodgingStatus    Boolean
+  yieldPrediction  Float
+  fertilizerPlan   Json?    // VRA prescription
+
+  reports          AnalysisReport[]
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model DroneFlight {
+  id             String      @id @default(uuid())
+  droneId        String
+  flightPath     Json?       // GeoJSON LineString
+  telemetry      Json?       // { battery, speed, altitude }
+  status         DroneStatus
+  videoStreamUrl String?
+
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model AnalysisReport {
+  id             String   @id @default(uuid())
+  targetEntityId String   // Can link to RubberTree or SugarcanePlot manually or via logic
+
+  // Optional relations to keep DB integrity if possible, otherwise rely on targetEntityId
+  rubberTreeId   String?
+  rubberTree     RubberTree? @relation(fields: [rubberTreeId], references: [id])
+
+  sugarcanePlotId String?
+  sugarcanePlot   SugarcanePlot? @relation(fields: [sugarcanePlotId], references: [id])
+
+  diagnosis      String   // Qwen-VL output
+  prescription   String   // Qwen-Max output
+  confidence     Float
+  images         String[]
+
+  createdAt      DateTime @default(now())
+}

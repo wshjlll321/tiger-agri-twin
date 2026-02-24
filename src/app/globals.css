@@ -1,26 +1,546 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Custom Colors */
+  --color-dark-bg: #0B1120;
+  --color-neon-green: #00E676;
+  --color-alert-red: #FF3D00;
+  --color-holographic-blue: #00B0FF;
+  --color-cyber-yellow: #FFD600;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #0B1120;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* ========== COCKPIT HUD EFFECTS ========== */
+
+/* CRT Scan Line Effect */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scanline-overlay::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 176, 255, 0.06),
+    transparent
+  );
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* HUD Corner Brackets */
+.hud-corners {
+  position: relative;
+}
+
+.hud-corners::before,
+.hud-corners::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hud-corners::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid rgba(0, 176, 255, 0.6);
+  border-left: 2px solid rgba(0, 176, 255, 0.6);
+}
+
+.hud-corners::after {
+  top: -1px;
+  right: -1px;
+  border-top: 2px solid rgba(0, 176, 255, 0.6);
+  border-right: 2px solid rgba(0, 176, 255, 0.6);
+}
+
+.hud-corners-bottom {
+  position: relative;
+}
+
+.hud-corners-bottom::before,
+.hud-corners-bottom::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hud-corners-bottom::before {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 2px solid rgba(0, 176, 255, 0.6);
+  border-left: 2px solid rgba(0, 176, 255, 0.6);
+}
+
+.hud-corners-bottom::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid rgba(0, 176, 255, 0.6);
+  border-right: 2px solid rgba(0, 176, 255, 0.6);
+}
+
+/* Radar Sweep Animation */
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.radar-sweep {
+  animation: radar-sweep 4s linear infinite;
+}
+
+/* Data Pulse Glow */
+@keyframes data-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.data-pulse {
+  animation: data-pulse 2s ease-in-out infinite;
+}
+
+/* HUD Status Dot */
+@keyframes status-blink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px currentColor; }
+  50% { opacity: 0.4; box-shadow: 0 0 8px currentColor; }
+}
+
+.status-dot {
+  animation: status-blink 2s ease-in-out infinite;
+}
+
+/* Scrolling Alert Ticker */
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-scroll {
+  animation: ticker-scroll 30s linear infinite;
+}
+
+/* Pulsing Border for AR Detection Boxes */
+@keyframes pulse-border {
+  0%, 100% { border-color: rgba(0, 230, 118, 0.3); box-shadow: 0 0 4px rgba(0, 230, 118, 0.1); }
+  50% { border-color: rgba(0, 230, 118, 0.9); box-shadow: 0 0 12px rgba(0, 230, 118, 0.4); }
+}
+
+.pulse-border {
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+/* Typing Indicator Dots */
+@keyframes typing-dot {
+  0%, 60%, 100% { opacity: 0.2; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+.typing-dot:nth-child(1) { animation: typing-dot 1.4s ease-in-out infinite; }
+.typing-dot:nth-child(2) { animation: typing-dot 1.4s ease-in-out 0.2s infinite; }
+.typing-dot:nth-child(3) { animation: typing-dot 1.4s ease-in-out 0.4s infinite; }
+
+/* FPV Video Gradient Simulation */
+@keyframes fpv-gradient {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+.fpv-feed {
+  background: linear-gradient(
+    135deg,
+    #0a1a10 0%,
+    #0d2818 20%,
+    #0a1a10 40%,
+    #112a1c 60%,
+    #0a1a10 80%,
+    #0d2818 100%
+  );
+  background-size: 400% 400%;
+  animation: fpv-gradient 10s ease infinite;
+}
+
+/* FPV Scan Lines (horizontal) */
+.fpv-scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 230, 118, 0.03) 2px,
+    rgba(0, 230, 118, 0.03) 4px
+  );
+}
+
+/* Scan Progress Bar */
+@keyframes scan-progress-glow {
+  0%, 100% { box-shadow: 0 0 4px rgba(0, 176, 255, 0.3); }
+  50% { box-shadow: 0 0 12px rgba(0, 176, 255, 0.6); }
+}
+
+.scan-progress-bar {
+  animation: scan-progress-glow 2s ease-in-out infinite;
+}
+
+/* CountUp fade in */
+@keyframes count-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.count-animate {
+  animation: count-fade 0.6s ease-out forwards;
+}
+
+/* Glow hover for carbon formula */
+.formula-var {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.formula-var:hover {
+  text-shadow: 0 0 12px currentColor, 0 0 24px currentColor;
+}
+
+/* ========== COCKPIT PANEL EFFECTS ========== */
+
+/* Glass Panel Glow on Hover */
+.glass-panel-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-panel-glow:hover {
+  box-shadow: 0 0 20px rgba(0, 176, 255, 0.08), inset 0 0 20px rgba(0, 176, 255, 0.02);
+  border-color: rgba(0, 176, 255, 0.25);
+}
+
+/* Panel Title Bar Decoration */
+.panel-title-bar {
+  position: relative;
+}
+
+.panel-title-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 176, 255, 0.3),
+    rgba(0, 230, 118, 0.2),
+    transparent
+  );
+}
+
+/* Grid Background Pattern */
+.cockpit-grid {
+  background-image:
+    linear-gradient(rgba(0, 176, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 176, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Horizontal Divider with Glow */
+.hud-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 176, 255, 0.4),
+    transparent
+  );
+}
+
+/* KPI Value Shimmer */
+@keyframes kpi-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.kpi-shimmer {
+  background: linear-gradient(
+    90deg,
+    currentColor 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    currentColor 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: kpi-shimmer 3s ease-in-out infinite;
+}
+
+/* Sidebar scroll styling */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(11, 17, 32, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 176, 255, 0.3);
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 176, 255, 0.6);
+  box-shadow: 0 0 8px rgba(0, 176, 255, 0.4);
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 176, 255, 0.3) rgba(11, 17, 32, 0.5);
+}
+
+/* Drone Path Glow Line */
+@keyframes path-flow {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -40; }
+}
+
+/* Alert Bar Flash */
+@keyframes alert-flash {
+  0%, 100% { background-color: rgba(255, 61, 0, 0.1); }
+  50% { background-color: rgba(255, 61, 0, 0.2); }
+}
+
+.alert-flash {
+  animation: alert-flash 3s ease-in-out infinite;
+}
+
+/* Mini Map Indicator */
+@keyframes map-ping {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+.map-ping::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  animation: map-ping 2s ease-out infinite;
+}
+
+/* ========== LEAFLET SATELLITE MAP THEME ========== */
+
+.leaflet-container {
+  background: #0B1120;
+}
+.leaflet-tile-pane {
+  filter: saturate(0.85) brightness(0.75);
+}
+.leaflet-control-zoom a {
+  background: rgba(11, 17, 32, 0.85) !important;
+  color: #00B0FF !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  backdrop-filter: blur(8px);
+}
+.leaflet-control-zoom a:hover {
+  background: rgba(11, 17, 32, 0.95) !important;
+  color: #00E676 !important;
+}
+
+/* Zone Labels */
+.zone-label-container {
+  background: none !important;
+  border: none !important;
+}
+.zone-label {
+  background: rgba(11, 17, 32, 0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 176, 255, 0.35);
+  border-radius: 6px;
+  padding: 5px 8px;
+  text-align: center;
+  font-family: monospace;
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+.zone-label-selected {
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 16px rgba(0, 176, 255, 0.3), inset 0 0 10px rgba(0, 176, 255, 0.05);
+  background: rgba(11, 17, 32, 0.93);
+}
+.zone-label-lodging {
+  border-color: rgba(255, 61, 0, 0.5);
+}
+.zone-label-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.zone-label-info {
+  font-size: 9px;
+  color: #94a3b8;
+  margin-top: 1px;
+}
+.zone-label-alert {
+  font-size: 8px;
+  color: #FF3D00;
+  font-weight: 700;
+  margin-top: 2px;
+  animation: pulse-text 2s ease-in-out infinite;
+}
+@keyframes pulse-text {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Zone Polygon Selection Glow */
+.leaflet-interactive.zone-selected {
+  filter: drop-shadow(0 0 8px rgba(0, 176, 255, 0.5));
+}
+
+/* Zone Hover Tooltips */
+.zone-tooltip-container .leaflet-tooltip {
+  background: rgba(11, 17, 32, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 176, 255, 0.35);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 176, 255, 0.12);
+  max-width: 260px;
+}
+.zone-tooltip-container .leaflet-tooltip::before {
+  border-top-color: rgba(0, 176, 255, 0.35);
+}
+
+/* Tree Tooltips */
+.tree-tooltip-container .leaflet-tooltip {
+  background: rgba(11, 17, 32, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 176, 255, 0.3);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: monospace;
+  font-size: 10px;
+  color: #e2e8f0;
+  box-shadow: 0 0 12px rgba(0, 176, 255, 0.15);
+}
+.tree-tooltip-container .leaflet-tooltip::before {
+  border-top-color: rgba(0, 176, 255, 0.3);
+}
+.tree-tooltip-id {
+  font-weight: 700;
+  font-size: 11px;
+  color: #00B0FF;
+  margin-bottom: 2px;
+}
+.tree-healthy {
+  color: #00E676;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.tree-critical {
+  color: #FF3D00;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* Drone Marker */
+.drone-icon-container {
+  background: none !important;
+  border: none !important;
+}
+.drone-marker {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drone-body {
+  width: 12px;
+  height: 12px;
+  background: #00B0FF;
+  border-radius: 3px;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(0, 176, 255, 0.7), 0 0 20px rgba(0, 176, 255, 0.3);
+  z-index: 2;
+  position: relative;
+}
+.drone-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(0, 176, 255, 0.4);
+  border-radius: 50%;
+  animation: drone-ping 2s ease-out infinite;
+}
+.drone-label {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: monospace;
+  font-size: 8px;
+  font-weight: 700;
+  color: #00B0FF;
+  white-space: nowrap;
+  background: rgba(11, 17, 32, 0.8);
+  padding: 1px 4px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 176, 255, 0.3);
+}
+@keyframes drone-ping {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+/* Leaflet Popup Override */
+.leaflet-popup-content-wrapper {
+  background: rgba(11, 17, 32, 0.92) !important;
+  border: 1px solid rgba(0, 176, 255, 0.3) !important;
+  border-radius: 8px !important;
+  color: #e2e8f0 !important;
+  font-family: monospace !important;
+}
+.leaflet-popup-tip {
+  background: rgba(11, 17, 32, 0.92) !important;
 }
