@@ -226,10 +226,9 @@ Action Plan:
                     ></div>
                   </div>
                 </div>
-                <div className={`text-[9px] px-1.5 py-0.5 rounded ${
-                  mn.status === 'optimal' ? 'bg-neon-green/10 text-neon-green border border-neon-green/20'
-                  : 'bg-cyber-yellow/10 text-cyber-yellow border border-cyber-yellow/20'
-                }`}>
+                <div className={`text-[9px] px-1.5 py-0.5 rounded ${mn.status === 'optimal' ? 'bg-neon-green/10 text-neon-green border border-neon-green/20'
+                    : 'bg-cyber-yellow/10 text-cyber-yellow border border-cyber-yellow/20'
+                  }`}>
                   {mn.status.toUpperCase()}
                 </div>
               </div>
@@ -250,28 +249,25 @@ Action Plan:
               <div key={pest.name} className="p-2.5 rounded border border-slate-700/40 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
-                    <Bug className={`w-4 h-4 ${
-                      pest.severity === 'high' ? 'text-alert-red' :
-                      pest.severity === 'medium' ? 'text-cyber-yellow' : 'text-slate-400'
-                    }`} />
+                    <Bug className={`w-4 h-4 ${pest.severity === 'high' ? 'text-alert-red' :
+                        pest.severity === 'medium' ? 'text-cyber-yellow' : 'text-slate-400'
+                      }`} />
                     <span className="text-xs font-bold text-slate-200">{pest.name}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     {pest.trend === 'rising' && <TrendingUp className="w-3 h-3 text-alert-red" />}
                     {pest.trend === 'declining' && <TrendingDown className="w-3 h-3 text-neon-green" />}
                     {pest.trend === 'stable' && <Minus className="w-3 h-3 text-slate-400" />}
-                    <span className={`text-xs font-mono font-bold ${
-                      pest.risk >= 60 ? 'text-alert-red' : pest.risk >= 40 ? 'text-cyber-yellow' : 'text-neon-green'
-                    }`}>{pest.risk}%</span>
+                    <span className={`text-xs font-mono font-bold ${pest.risk >= 60 ? 'text-alert-red' : pest.risk >= 40 ? 'text-cyber-yellow' : 'text-neon-green'
+                      }`}>{pest.risk}%</span>
                   </div>
                 </div>
                 <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all ${
-                      pest.risk >= 60 ? 'bg-alert-red shadow-[0_0_6px_rgba(255,61,0,0.4)]'
-                      : pest.risk >= 40 ? 'bg-cyber-yellow'
-                      : 'bg-neon-green'
-                    }`}
+                    className={`h-full rounded-full transition-all ${pest.risk >= 60 ? 'bg-alert-red shadow-[0_0_6px_rgba(255,61,0,0.4)]'
+                        : pest.risk >= 40 ? 'bg-cyber-yellow'
+                          : 'bg-neon-green'
+                      }`}
                     style={{ width: `${pest.risk}%` }}
                   ></div>
                 </div>
@@ -296,11 +292,10 @@ Action Plan:
                   className="w-full flex items-center justify-between px-4 py-3 hover:bg-slate-800/40 transition-colors text-left"
                 >
                   <div className="flex items-center gap-3 flex-wrap">
-                    <Bug className={`w-5 h-5 shrink-0 ${
-                      chain.severity === 'CRITICAL' ? 'text-red-400 animate-pulse' :
-                      chain.severity === 'HIGH' ? 'text-alert-red' :
-                      chain.severity === 'MEDIUM' ? 'text-cyber-yellow' : 'text-neon-green'
-                    }`} />
+                    <Bug className={`w-5 h-5 shrink-0 ${chain.severity === 'CRITICAL' ? 'text-red-400 animate-pulse' :
+                        chain.severity === 'HIGH' ? 'text-alert-red' :
+                          chain.severity === 'MEDIUM' ? 'text-cyber-yellow' : 'text-neon-green'
+                      }`} />
                     <div>
                       <span className="text-sm font-bold text-slate-100">{chain.pestName}</span>
                       <span className="text-xs text-slate-400 ml-2">{chain.pestNameTH}</span>
@@ -318,9 +313,8 @@ Action Plan:
                 </button>
 
                 {/* ── Expandable Body ── */}
-                <div className={`grid transition-all duration-300 ease-in-out ${
-                  isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                }`}>
+                <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                  }`}>
                   <div className="overflow-hidden">
                     <div className="px-4 pb-4 space-y-5">
                       {/* Meta row */}
@@ -335,9 +329,8 @@ Action Plan:
                         {chain.evidenceNodes.map((node, idx) => (
                           <div key={node.id} className="relative">
                             {/* Dot */}
-                            <div className={`absolute -left-[23px] top-1 w-3 h-3 rounded-full ring-4 ring-slate-900 ${
-                              node.anomalyDetected ? 'bg-alert-red' : 'bg-neon-green'
-                            }`}></div>
+                            <div className={`absolute -left-[23px] top-1 w-3 h-3 rounded-full ring-4 ring-slate-900 ${node.anomalyDetected ? 'bg-alert-red' : 'bg-neon-green'
+                              }`}></div>
 
                             <div className="space-y-2">
                               {/* Timestamp + source */}
@@ -374,17 +367,15 @@ Action Plan:
                                 <span className="text-[9px] text-slate-500 w-16">Confidence</span>
                                 <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden max-w-[180px]">
                                   <div
-                                    className={`h-full rounded-full transition-all ${
-                                      node.confidence >= 85 ? 'bg-neon-green' :
-                                      node.confidence >= 70 ? 'bg-cyber-yellow' : 'bg-alert-red'
-                                    }`}
+                                    className={`h-full rounded-full transition-all ${node.confidence >= 85 ? 'bg-neon-green' :
+                                        node.confidence >= 70 ? 'bg-cyber-yellow' : 'bg-alert-red'
+                                      }`}
                                     style={{ width: `${node.confidence}%` }}
                                   ></div>
                                 </div>
-                                <span className={`text-[10px] font-mono font-bold ${
-                                  node.confidence >= 85 ? 'text-neon-green' :
-                                  node.confidence >= 70 ? 'text-cyber-yellow' : 'text-alert-red'
-                                }`}>{node.confidence}%</span>
+                                <span className={`text-[10px] font-mono font-bold ${node.confidence >= 85 ? 'text-neon-green' :
+                                    node.confidence >= 70 ? 'text-cyber-yellow' : 'text-alert-red'
+                                  }`}>{node.confidence}%</span>
                               </div>
 
                               {/* Description */}
@@ -455,24 +446,21 @@ Action Plan:
               ].map((stage, i, arr) => (
                 <div key={stage.label} className="flex-1 relative">
                   <div className="flex items-center">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                      stage.status === 'completed' ? 'bg-neon-green/20 text-neon-green border-2 border-neon-green/50' :
-                      stage.status === 'active' ? 'bg-holographic-blue/20 text-holographic-blue border-2 border-holographic-blue/50 animate-pulse' :
-                      'bg-slate-800 text-slate-500 border-2 border-slate-700'
-                    }`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${stage.status === 'completed' ? 'bg-neon-green/20 text-neon-green border-2 border-neon-green/50' :
+                        stage.status === 'active' ? 'bg-holographic-blue/20 text-holographic-blue border-2 border-holographic-blue/50 animate-pulse' :
+                          'bg-slate-800 text-slate-500 border-2 border-slate-700'
+                      }`}>
                       {stage.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
                     </div>
                     {i < arr.length - 1 && (
-                      <div className={`flex-1 h-0.5 ${
-                        stage.status === 'completed' ? 'bg-neon-green/40' : 'bg-slate-700'
-                      }`} />
+                      <div className={`flex-1 h-0.5 ${stage.status === 'completed' ? 'bg-neon-green/40' : 'bg-slate-700'
+                        }`} />
                     )}
                   </div>
                   <div className="mt-2 pr-2">
-                    <div className={`text-[10px] font-bold ${
-                      stage.status === 'completed' ? 'text-neon-green' :
-                      stage.status === 'active' ? 'text-holographic-blue' : 'text-slate-500'
-                    }`}>{stage.label}</div>
+                    <div className={`text-[10px] font-bold ${stage.status === 'completed' ? 'text-neon-green' :
+                        stage.status === 'active' ? 'text-holographic-blue' : 'text-slate-500'
+                      }`}>{stage.label}</div>
                     <div className="text-[9px] text-slate-400 mt-0.5">{stage.detail}</div>
                     <div className="text-[9px] text-slate-500">{stage.person}</div>
                     <div className="text-[8px] font-mono text-slate-600 mt-0.5">{stage.time}</div>
@@ -539,9 +527,8 @@ Action Plan:
                       <span className={`font-mono font-bold ${item.color}`}>{item.value.toFixed(2)}</span>
                     </div>
                     <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                      <div className={`h-full rounded-full transition-all ${
-                        item.value >= 0.7 ? 'bg-neon-green' : item.value >= 0.5 ? 'bg-cyber-yellow' : 'bg-alert-red'
-                      }`} style={{ width: `${item.value * 100}%` }} />
+                      <div className={`h-full rounded-full transition-all ${item.value >= 0.7 ? 'bg-neon-green' : item.value >= 0.5 ? 'bg-cyber-yellow' : 'bg-alert-red'
+                        }`} style={{ width: `${item.value * 100}%` }} />
                     </div>
                   </div>
                 ))}
@@ -623,19 +610,17 @@ Action Plan:
                   <span className="text-xs text-slate-300 w-20">{zone.name}</span>
                   <div className="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
                     <div
-                      className={`h-full rounded-full transition-all ${
-                        zone.status === 'active' ? 'bg-holographic-blue animate-pulse' :
-                        zone.status === 'completed' ? 'bg-neon-green' : 'bg-slate-600'
-                      }`}
+                      className={`h-full rounded-full transition-all ${zone.status === 'active' ? 'bg-holographic-blue animate-pulse' :
+                          zone.status === 'completed' ? 'bg-neon-green' : 'bg-slate-600'
+                        }`}
                       style={{ width: `${zone.moisture}%` }}
                     ></div>
                   </div>
                   <span className="text-[10px] text-slate-400 w-10 text-right">{zone.moisture}%</span>
-                  <span className={`text-[8px] px-1.5 py-0.5 rounded uppercase font-bold ${
-                    zone.status === 'active' ? 'bg-holographic-blue/10 text-holographic-blue' :
-                    zone.status === 'completed' ? 'bg-neon-green/10 text-neon-green' :
-                    'bg-slate-700 text-slate-400'
-                  }`}>{zone.status}</span>
+                  <span className={`text-[8px] px-1.5 py-0.5 rounded uppercase font-bold ${zone.status === 'active' ? 'bg-holographic-blue/10 text-holographic-blue' :
+                      zone.status === 'completed' ? 'bg-neon-green/10 text-neon-green' :
+                        'bg-slate-700 text-slate-400'
+                    }`}>{zone.status}</span>
                 </div>
               ))}
             </div>
@@ -647,9 +632,8 @@ Action Plan:
           <div className="relative pl-4 border-l border-slate-700/50 space-y-5">
             {data.protectionHistory.map((item: any, i: number) => (
               <div key={i} className={`relative ${!item.active && 'opacity-60'}`}>
-                <div className={`absolute -left-[21px] top-1 w-3 h-3 rounded-full ring-4 ring-slate-900 ${
-                  item.active ? 'bg-holographic-blue' : 'bg-slate-600'
-                }`}></div>
+                <div className={`absolute -left-[21px] top-1 w-3 h-3 rounded-full ring-4 ring-slate-900 ${item.active ? 'bg-holographic-blue' : 'bg-slate-600'
+                  }`}></div>
                 <div className="text-sm font-bold text-slate-200">{item.action}</div>
                 <div className="text-xs text-slate-400 mt-0.5">
                   Target: {item.target} · Coverage: {item.coverage}
@@ -700,24 +684,21 @@ Integrated Recommendations:
               ].map((stage, i, arr) => (
                 <div key={stage.label} className="flex-1 relative">
                   <div className="flex items-center">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                      stage.status === 'completed' ? 'bg-neon-green/20 text-neon-green border-2 border-neon-green/50' :
-                      stage.status === 'active' ? 'bg-cyber-yellow/20 text-cyber-yellow border-2 border-cyber-yellow/50 animate-pulse' :
-                      'bg-slate-800 text-slate-500 border-2 border-slate-700'
-                    }`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${stage.status === 'completed' ? 'bg-neon-green/20 text-neon-green border-2 border-neon-green/50' :
+                        stage.status === 'active' ? 'bg-cyber-yellow/20 text-cyber-yellow border-2 border-cyber-yellow/50 animate-pulse' :
+                          'bg-slate-800 text-slate-500 border-2 border-slate-700'
+                      }`}>
                       {stage.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
                     </div>
                     {i < arr.length - 1 && (
-                      <div className={`flex-1 h-0.5 ${
-                        stage.status === 'completed' ? 'bg-neon-green/40' : 'bg-slate-700'
-                      }`} />
+                      <div className={`flex-1 h-0.5 ${stage.status === 'completed' ? 'bg-neon-green/40' : 'bg-slate-700'
+                        }`} />
                     )}
                   </div>
                   <div className="mt-2 pr-2">
-                    <div className={`text-[10px] font-bold ${
-                      stage.status === 'completed' ? 'text-neon-green' :
-                      stage.status === 'active' ? 'text-cyber-yellow' : 'text-slate-500'
-                    }`}>{stage.label}</div>
+                    <div className={`text-[10px] font-bold ${stage.status === 'completed' ? 'text-neon-green' :
+                        stage.status === 'active' ? 'text-cyber-yellow' : 'text-slate-500'
+                      }`}>{stage.label}</div>
                     <div className="text-[9px] text-slate-400 mt-0.5">{stage.detail}</div>
                     <div className="text-[9px] text-slate-500">{stage.person}</div>
                     <div className="text-[8px] font-mono text-slate-600 mt-0.5">{stage.time}</div>
@@ -805,9 +786,8 @@ Integrated Recommendations:
                   },
                 ].map((rec, i) => (
                   <div key={rec.date} className="relative">
-                    <div className={`absolute -left-[21px] top-1 w-3 h-3 rounded-full ring-4 ring-slate-900 ${
-                      i === 0 ? 'bg-holographic-blue' : 'bg-slate-600'
-                    }`} />
+                    <div className={`absolute -left-[21px] top-1 w-3 h-3 rounded-full ring-4 ring-slate-900 ${i === 0 ? 'bg-holographic-blue' : 'bg-slate-600'
+                      }`} />
                     <div className="text-[10px] font-mono text-holographic-blue">{rec.date}</div>
                     <div className="text-xs text-slate-200 font-bold mt-0.5">{rec.formula}</div>
                     <div className="text-[9px] text-slate-500">{rec.method}</div>
@@ -816,10 +796,9 @@ Integrated Recommendations:
                       <span className="text-slate-400">P: <span className="text-slate-500">{rec.pBefore}</span><span className="text-neon-green"> → {rec.pAfter}</span></span>
                       <span className="text-slate-400">K: <span className="text-slate-500">{rec.kBefore}</span><span className="text-neon-green"> → {rec.kAfter}</span></span>
                     </div>
-                    <span className={`text-[8px] mt-1 inline-block px-1.5 py-0.5 rounded ${
-                      rec.effect === 'excellent' ? 'bg-neon-green/10 text-neon-green border border-neon-green/20' :
-                      'bg-holographic-blue/10 text-holographic-blue border border-holographic-blue/20'
-                    }`}>{rec.effect.toUpperCase()}</span>
+                    <span className={`text-[8px] mt-1 inline-block px-1.5 py-0.5 rounded ${rec.effect === 'excellent' ? 'bg-neon-green/10 text-neon-green border border-neon-green/20' :
+                        'bg-holographic-blue/10 text-holographic-blue border border-holographic-blue/20'
+                      }`}>{rec.effect.toUpperCase()}</span>
                   </div>
                 ))}
               </div>
@@ -854,7 +833,7 @@ Integrated Recommendations:
           3.1 Crop Growth Lifecycle Calendar
          ══════════════════════════════════════════════════════════════ */}
       {(() => {
-        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const currentMonth = 1; // February = index 1
         const phases = [
           { label: t('dormancy'), color: '#64748b', months: [0, 1] },
@@ -1087,7 +1066,7 @@ Integrated Recommendations:
             curative: ['Azoxystrobin spray', 'Prochloraz post-harvest dip', 'Remove infected tissue'],
           },
         ];
-        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const currentMonthIdx = 1;
 
         return (
@@ -1124,7 +1103,7 @@ Integrated Recommendations:
                           {/* Risk curve chart */}
                           <div>
                             <div className="text-[9px] text-slate-500 uppercase mb-1">{t('seasonalRiskCurve')}</div>
-                            <div className="h-[120px]">
+                            <div className="min-h-[220px] lg:min-h-0 lg:h-[120px]">
                               <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart data={riskChartData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
                                   <defs>
@@ -1330,11 +1309,10 @@ Integrated Recommendations:
                   return (
                     <div key={stage.label} className="flex-1 relative">
                       <div className="flex items-center">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                          stage.status === 'completed' ? 'bg-neon-green/20 text-neon-green border-2 border-neon-green/50' :
-                          stage.status === 'active' ? 'bg-holographic-blue/20 text-holographic-blue border-2 border-holographic-blue/50 animate-pulse' :
-                          'bg-slate-800 text-slate-500 border-2 border-slate-700'
-                        }`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${stage.status === 'completed' ? 'bg-neon-green/20 text-neon-green border-2 border-neon-green/50' :
+                            stage.status === 'active' ? 'bg-holographic-blue/20 text-holographic-blue border-2 border-holographic-blue/50 animate-pulse' :
+                              'bg-slate-800 text-slate-500 border-2 border-slate-700'
+                          }`}>
                           {stage.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> : <Icon className="w-4 h-4" />}
                         </div>
                         {i < arr.length - 1 && (
@@ -1342,10 +1320,9 @@ Integrated Recommendations:
                         )}
                       </div>
                       <div className="mt-2 pr-2">
-                        <div className={`text-[10px] font-bold ${
-                          stage.status === 'completed' ? 'text-neon-green' :
-                          stage.status === 'active' ? 'text-holographic-blue' : 'text-slate-500'
-                        }`}>{stage.label}</div>
+                        <div className={`text-[10px] font-bold ${stage.status === 'completed' ? 'text-neon-green' :
+                            stage.status === 'active' ? 'text-holographic-blue' : 'text-slate-500'
+                          }`}>{stage.label}</div>
                         <div className="text-[9px] text-slate-400 mt-0.5">{stage.detail}</div>
                       </div>
                     </div>

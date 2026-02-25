@@ -29,14 +29,14 @@ export default function TopBar() {
   return (
     <div className="absolute top-0 left-0 right-0 z-20 pointer-events-none">
       <div className="bg-[#0B1120]/60 backdrop-blur border-b border-white/10">
-        <div className="flex items-center justify-between px-4 py-3 max-h-16">
+        <div className="flex items-center justify-between px-2 md:px-4 py-2 md:py-3 max-h-16">
           {/* ---- Left Section ---- */}
-          <div className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center gap-2 md:gap-3 min-w-0">
             <div className="flex flex-col leading-tight min-w-0">
-              <span className="text-lg font-bold text-white tracking-wide">
+              <span className="text-sm md:text-lg font-bold text-white tracking-wide truncate">
                 TIGER AGRI-TWIN
               </span>
-              <span className="text-xs font-mono text-slate-400 truncate">
+              <span className="text-[10px] md:text-xs font-mono text-slate-400 truncate">
                 {t("systemOnline")} | V2.0.0
               </span>
             </div>
@@ -70,11 +70,10 @@ export default function TopBar() {
                 <button
                   key={lang.code}
                   onClick={() => setLocale(lang.code)}
-                  className={`px-2 py-0.5 text-xs rounded transition-colors ${
-                    locale === lang.code
+                  className={`px-2 py-0.5 text-xs rounded transition-colors ${locale === lang.code
                       ? "bg-[#00E676]/20 text-[#00E676]"
                       : "text-gray-500 hover:text-gray-300"
-                  }`}
+                    }`}
                 >
                   {lang.label}
                 </button>
@@ -85,11 +84,11 @@ export default function TopBar() {
             <div className="w-px h-5 bg-white/10" />
 
             {/* Weather Widget */}
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
+            <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-300">
               <span className="text-[#00B0FF]">{t("weather")}</span>
               <span className="text-white font-semibold">24°C</span>
-              <span className="text-slate-500">/</span>
-              <span>
+              <span className="text-slate-500 hidden md:inline">/</span>
+              <span className="hidden md:inline">
                 {t("humidity")} 65%
               </span>
               <Wind className="w-3.5 h-3.5 text-[#00B0FF]" />

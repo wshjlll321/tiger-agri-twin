@@ -2,7 +2,7 @@
 
 import { useAppStore } from "@/lib/store";
 import { useTranslation } from "@/lib/i18n";
-import { AlertTriangle, ScanEye, LayoutDashboard, Radar as RadarIcon, BarChart3, TreePine, Sprout } from "lucide-react";
+import { AlertTriangle, ScanEye, LayoutDashboard, Radar as RadarIcon, BarChart3, TreePine, Sprout, Menu, X } from "lucide-react";
 
 const TAB_KEYS = [
   { key: "overview" as const, labelKey: "overview", icon: LayoutDashboard },
@@ -18,6 +18,8 @@ export default function BottomBar() {
   const setActiveTab = useAppStore((s) => s.setActiveTab);
   const algorithmLensActive = useAppStore((s) => s.algorithmLensActive);
   const setAlgorithmLensActive = useAppStore((s) => s.setAlgorithmLensActive);
+  const mobilePanelOpen = useAppStore((s) => s.mobilePanelOpen);
+  const setMobilePanelOpen = useAppStore((s) => s.setMobilePanelOpen);
 
   const alertMessages = [
     t("alert1"),
@@ -53,8 +55,22 @@ export default function BottomBar() {
       </div>
 
       {/* Row 2 - Navigation Tabs */}
-      <div className="flex justify-center pb-3">
-        <div className="pointer-events-auto flex items-center gap-0.5 bg-dark-bg/65 backdrop-blur border border-white/5 rounded-lg px-4 py-1.5">
+      <div className="flex justify-center pb-3 px-2">
+        <div className="pointer-events-auto flex items-center gap-1 sm:gap-0.5 bg-dark-bg/65 backdrop-blur border border-white/5 rounded-lg px-2 sm:px-4 py-1.5 overflow-x-auto whitespace-nowrap scrollbar-hide max-w-full">
+          {/* Mobile Panel Toggle */}
+          <button
+            onClick={() => setMobilePanelOpen(!mobilePanelOpen)}
+            className={`lg:hidden flex items-center justify-center shrink-0 w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 gap-1.5 mr-1 rounded border transition-colors ${mobilePanelOpen
+                ? "bg-neon-green/20 border-neon-green text-neon-green"
+                : "bg-white/5 border-white/10 text-gray-400 hover:text-neon-green"
+              }`}
+          >
+            {mobilePanelOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            <span className="hidden sm:inline text-xs font-medium tracking-wider">
+              {t("data")}
+            </span>
+          </button>
+
           {TAB_KEYS.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.key;
@@ -62,11 +78,10 @@ export default function BottomBar() {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wider transition-all rounded ${
-                  isActive
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wider transition-all rounded ${isActive
                     ? "text-neon-green bg-neon-green/10 border border-neon-green/20"
                     : "text-gray-500 hover:text-neon-green hover:bg-white/5 border border-transparent"
-                }`}
+                  }`}
               >
                 <Icon className={`w-3.5 h-3.5 ${isActive ? "text-neon-green" : ""}`} />
                 {t(tab.labelKey)}
@@ -75,19 +90,18 @@ export default function BottomBar() {
           })}
 
           {/* Vertical Divider */}
-          <div className="w-px h-5 bg-white/10 mx-2" />
+          <div className="shrink-0 w-px h-5 bg-white/10 mx-2" />
 
           {/* Algorithm Lens Toggle */}
           <button
             onClick={() => setAlgorithmLensActive(!algorithmLensActive)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wider rounded border transition-colors ${
-              algorithmLensActive
+            className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wider rounded border transition-colors ${algorithmLensActive
                 ? "bg-neon-green/20 border-neon-green text-neon-green"
                 : "bg-white/5 border-white/10 text-gray-400 hover:text-neon-green"
-            }`}
+              }`}
           >
             <ScanEye className="w-3.5 h-3.5" />
-            {t("algorithmLens")}
+            <span className="hidden sm:inline">{t("algorithmLens")}</span>
           </button>
         </div>
       </div>

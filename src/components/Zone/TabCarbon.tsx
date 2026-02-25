@@ -371,7 +371,7 @@ export default function TabCarbon({ data }: { data: any }) {
 
       {/* ====== Section 3: Monthly Sequestration Chart ====== */}
       <GlassPanel title={t("monthlySeqChart")} accent="green">
-        <div className="h-[350px] w-full">
+        <div className="min-h-[400px] lg:min-h-0 lg:h-[350px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={chartData} margin={{ top: 10, right: 20, bottom: 10, left: 10 }}>
               <CartesianGrid stroke="#1e293b" strokeDasharray="3 3" vertical={false} />
@@ -632,24 +632,21 @@ ${cd.aiRecommendations.map((r, i) => `${i + 1}. ${r}`).join('\n')}`}
                 {roadmapStages.map((stage, i, arr) => (
                   <div key={stage.year} className="flex-1 relative">
                     <div className="flex items-center">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                        stage.status === 'completed' ? 'bg-neon-green/20 text-neon-green border-2 border-neon-green/50' :
-                        stage.status === 'active' ? 'bg-holographic-blue/20 text-holographic-blue border-2 border-holographic-blue/50 animate-pulse' :
-                        'bg-slate-800 text-slate-500 border-2 border-slate-700'
-                      }`}>
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${stage.status === 'completed' ? 'bg-neon-green/20 text-neon-green border-2 border-neon-green/50' :
+                          stage.status === 'active' ? 'bg-holographic-blue/20 text-holographic-blue border-2 border-holographic-blue/50 animate-pulse' :
+                            'bg-slate-800 text-slate-500 border-2 border-slate-700'
+                        }`}>
                         {stage.status === 'completed' ? <CheckCircle2 className="w-5 h-5" /> : stage.year}
                       </div>
                       {i < arr.length - 1 && (
-                        <div className={`flex-1 h-0.5 ${
-                          stage.status === 'completed' ? 'bg-neon-green/40' : 'bg-slate-700'
-                        }`} />
+                        <div className={`flex-1 h-0.5 ${stage.status === 'completed' ? 'bg-neon-green/40' : 'bg-slate-700'
+                          }`} />
                       )}
                     </div>
                     <div className="mt-2 pr-2">
-                      <div className={`text-[10px] font-bold ${
-                        stage.status === 'completed' ? 'text-neon-green' :
-                        stage.status === 'active' ? 'text-holographic-blue' : 'text-slate-500'
-                      }`}>{stage.label}</div>
+                      <div className={`text-[10px] font-bold ${stage.status === 'completed' ? 'text-neon-green' :
+                          stage.status === 'active' ? 'text-holographic-blue' : 'text-slate-500'
+                        }`}>{stage.label}</div>
                       <div className="text-[9px] text-slate-400 mt-0.5">{stage.detail}</div>
                       <div className="text-[8px] font-mono text-slate-600 mt-0.5">{stage.year}</div>
                     </div>
@@ -676,7 +673,7 @@ ${cd.aiRecommendations.map((r, i) => `${i + 1}. ${r}`).join('\n')}`}
           2.3 Yearly Carbon Sequestration Trend
          ══════════════════════════════════════════════════════════════ */}
       {(() => {
-        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const yearlyData = months.map((m, i) => ({
           month: m,
           y2024: [3.2, 3.5, 4.1, 4.8, 5.2, 5.0, 4.6, 4.8, 5.1, 4.9, 4.2, 3.8][i],
@@ -691,7 +688,7 @@ ${cd.aiRecommendations.map((r, i) => `${i + 1}. ${r}`).join('\n')}`}
         return (
           <GlassPanel title={t("yearlyCarbonTrend")} accent="green">
             <div className="space-y-3">
-              <div className="h-[280px] w-full">
+              <div className="min-h-[350px] lg:min-h-0 lg:h-[280px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={yearlyData} margin={{ top: 10, right: 20, bottom: 10, left: 10 }}>
                     <CartesianGrid stroke="#1e293b" strokeDasharray="3 3" vertical={false} />
@@ -718,7 +715,7 @@ ${cd.aiRecommendations.map((r, i) => `${i + 1}. ${r}`).join('\n')}`}
           2.4 Carbon Credit Price History
          ══════════════════════════════════════════════════════════════ */}
       {(() => {
-        const priceMonths = ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+        const priceMonths = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
         const priceData = priceMonths.map((m, i) => ({
           month: m,
           vcs: [8.2, 8.5, 8.8, 9.1, 9.4, 9.6, 10.0, 10.2, 10.5, 10.8, 11.0, 11.4][i],
@@ -729,7 +726,7 @@ ${cd.aiRecommendations.map((r, i) => `${i + 1}. ${r}`).join('\n')}`}
         return (
           <GlassPanel title={t("creditPriceHistory")} accent="blue">
             <div className="space-y-3">
-              <div className="h-[250px] w-full">
+              <div className="min-h-[350px] lg:min-h-0 lg:h-[250px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={priceData} margin={{ top: 10, right: 20, bottom: 10, left: 10 }}>
                     <defs>

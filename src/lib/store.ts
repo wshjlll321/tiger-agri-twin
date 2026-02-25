@@ -49,6 +49,10 @@ interface AppState {
   activeTab: 'overview' | 'drone' | 'analytics' | 'rubber' | 'sugarcane';
   setActiveTab: (tab: 'overview' | 'drone' | 'analytics' | 'rubber' | 'sugarcane') => void;
 
+  // Mobile Layout State
+  mobilePanelOpen: boolean;
+  setMobilePanelOpen: (open: boolean) => void;
+
   // Chat Messages
   chatMessages: ChatMessage[];
   addChatMessage: (message: ChatMessage) => void;
@@ -84,6 +88,9 @@ export const useAppStore = create<AppState>((set) => ({
 
   activeTab: 'overview',
   setActiveTab: (tab) => set({ activeTab: tab }),
+
+  mobilePanelOpen: true,
+  setMobilePanelOpen: (open) => set({ mobilePanelOpen: open }),
 
   chatMessages: [
     {

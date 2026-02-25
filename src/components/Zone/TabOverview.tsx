@@ -162,16 +162,14 @@ Recommendation: Monitor soil moisture closely over the next 5 days. If the decli
               <div className="flex items-center justify-between gap-1">
                 {data.growthStage.stages.map((stage: any, i: number) => (
                   <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                    <div className={`w-full h-1.5 rounded-full ${
-                      stage.completed ? 'bg-neon-green shadow-[0_0_8px_rgba(0,230,118,0.4)]'
-                      : stage.active ? 'bg-neon-green/50 animate-pulse'
-                      : 'bg-slate-700'
-                    }`}></div>
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 ${
-                      stage.completed ? 'bg-neon-green/20 border-neon-green text-neon-green'
-                      : stage.active ? 'bg-holographic-blue/20 border-holographic-blue text-holographic-blue animate-pulse'
-                      : 'bg-slate-800 border-slate-600 text-slate-500'
-                    }`}>
+                    <div className={`w-full h-1.5 rounded-full ${stage.completed ? 'bg-neon-green shadow-[0_0_8px_rgba(0,230,118,0.4)]'
+                        : stage.active ? 'bg-neon-green/50 animate-pulse'
+                          : 'bg-slate-700'
+                      }`}></div>
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 ${stage.completed ? 'bg-neon-green/20 border-neon-green text-neon-green'
+                        : stage.active ? 'bg-holographic-blue/20 border-holographic-blue text-holographic-blue animate-pulse'
+                          : 'bg-slate-800 border-slate-600 text-slate-500'
+                      }`}>
                       {stage.completed ? '✓' : i + 1}
                     </div>
                     <div className="text-center">
@@ -335,7 +333,7 @@ Recommendation: Monitor soil moisture closely over the next 5 days. If the decli
                     <span className="text-holographic-blue font-bold ml-1">{data.moistureHistory[data.moistureHistory.length - 1]}%</span>
                   </span>
                 </div>
-                <div className="h-44">
+                <div className="h-64 lg:h-44">
                   <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart data={envChartData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
                       <defs>
@@ -401,7 +399,7 @@ Recommendation: Monitor soil moisture closely over the next 5 days. If the decli
                   <span className="text-slate-400">{t('overallHealthIndex')}</span>
                   <span className="text-cyber-yellow font-bold ml-1">{data.history[data.history.length - 1]}</span>
                 </div>
-                <div className="h-28">
+                <div className="h-48 lg:h-28">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={envChartData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
                       <defs>
@@ -451,20 +449,17 @@ Recommendation: Monitor soil moisture closely over the next 5 days. If the decli
         <GlassPanel title={t('sensorNetwork')} accent="green">
           <div className="space-y-2">
             {data.sensors.map((sensor: any) => (
-              <div key={sensor.id} className={`flex items-center gap-3 p-2 rounded border transition-colors ${
-                sensor.status === 'warning'
+              <div key={sensor.id} className={`flex items-center gap-3 p-2 rounded border transition-colors ${sensor.status === 'warning'
                   ? 'bg-cyber-yellow/5 border-cyber-yellow/30'
                   : 'bg-slate-800/30 border-slate-700/30 hover:border-slate-600'
-              }`}>
-                <div className={`w-2 h-2 rounded-full ${
-                  sensor.status === 'warning' ? 'bg-cyber-yellow animate-pulse' : 'bg-neon-green'
-                }`}></div>
+                }`}>
+                <div className={`w-2 h-2 rounded-full ${sensor.status === 'warning' ? 'bg-cyber-yellow animate-pulse' : 'bg-neon-green'
+                  }`}></div>
                 <div className="flex-1 min-w-0">
                   <div className="text-[10px] text-slate-500 truncate">{sensor.id} · {sensor.type}</div>
                 </div>
-                <div className={`text-xs font-mono font-bold ${
-                  sensor.status === 'warning' ? 'text-cyber-yellow' : 'text-white'
-                }`}>{sensor.value}</div>
+                <div className={`text-xs font-mono font-bold ${sensor.status === 'warning' ? 'text-cyber-yellow' : 'text-white'
+                  }`}>{sensor.value}</div>
               </div>
             ))}
             <div className="pt-2 border-t border-slate-700/30 flex justify-between text-[10px]">
@@ -502,7 +497,7 @@ Recommendation: The environmental data supports maintaining current irrigation a
           4.2 Yield Prediction Model
          ══════════════════════════════════════════════════════════════ */}
       {(() => {
-        const months = ['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'];
+        const months = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10', 'W11', 'W12'];
         const yieldPredData = months.map((w, i) => ({
           week: w,
           predicted: [8.2, 8.8, 9.3, 9.8, 10.2, 10.6, 11.0, 11.4, 11.8, 12.1, 12.3, 12.5][i],
@@ -519,7 +514,7 @@ Recommendation: The environmental data supports maintaining current irrigation a
         return (
           <GlassPanel title={t("yieldPredictionModel")} accent="green">
             <div className="space-y-3">
-              <div className="h-[260px] w-full">
+              <div className="min-h-[350px] lg:min-h-0 lg:h-[260px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={yieldPredData} margin={{ top: 10, right: 20, bottom: 5, left: 10 }}>
                     <defs>
@@ -671,7 +666,7 @@ Recommendation: The environmental data supports maintaining current irrigation a
           <GlassPanel title={t("waterUseEfficiency")} accent="blue">
             <div className="space-y-4">
               {/* WUE trend chart */}
-              <div className="h-[180px] w-full">
+              <div className="min-h-[280px] lg:min-h-0 lg:h-[180px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={wueData} margin={{ top: 5, right: 10, left: -15, bottom: 0 }}>
                     <defs>
@@ -783,10 +778,9 @@ Recommendation: The environmental data supports maintaining current irrigation a
               <div key={m.id} className="p-3 rounded border border-slate-700/50 bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
                 <div className="flex justify-between items-start mb-1">
                   <div className="text-xs font-bold text-white">{t('missionId')} {m.id}</div>
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase ${
-                    m.status === 'Completed' ? 'bg-neon-green/10 text-neon-green border border-neon-green/30' :
-                    'bg-cyber-yellow/10 text-cyber-yellow border border-cyber-yellow/30'
-                  }`}>{m.status}</span>
+                  <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase ${m.status === 'Completed' ? 'bg-neon-green/10 text-neon-green border border-neon-green/30' :
+                      'bg-cyber-yellow/10 text-cyber-yellow border border-cyber-yellow/30'
+                    }`}>{m.status}</span>
                 </div>
                 <div className="text-[10px] text-slate-400 space-y-0.5">
                   <div className="flex justify-between"><span>Drone</span><span className="text-slate-300">{m.drone}</span></div>
@@ -805,27 +799,24 @@ Recommendation: The environmental data supports maintaining current irrigation a
             {data.alerts.map((alert: any) => (
               <div
                 key={alert.id}
-                className={`p-3 rounded border backdrop-blur-sm relative overflow-hidden group hover:scale-[1.01] transition-transform ${
-                  alert.type === 'critical'
+                className={`p-3 rounded border backdrop-blur-sm relative overflow-hidden group hover:scale-[1.01] transition-transform ${alert.type === 'critical'
                     ? 'bg-alert-red/10 border-alert-red/40'
                     : alert.type === 'warning'
                       ? 'bg-cyber-yellow/10 border-cyber-yellow/40'
                       : 'bg-slate-800/40 border-slate-700/60'
-                }`}
+                  }`}
               >
                 {alert.type === 'critical' && <div className="absolute inset-0 bg-alert-red/5 animate-pulse pointer-events-none"></div>}
                 <div className="flex gap-3 relative z-10">
-                  <div className={`mt-0.5 p-1 rounded-full h-fit ${
-                    alert.type === 'critical' ? 'bg-alert-red/20 text-alert-red' :
-                    alert.type === 'warning' ? 'bg-cyber-yellow/20 text-cyber-yellow' : 'bg-holographic-blue/20 text-holographic-blue'
-                  }`}>
+                  <div className={`mt-0.5 p-1 rounded-full h-fit ${alert.type === 'critical' ? 'bg-alert-red/20 text-alert-red' :
+                      alert.type === 'warning' ? 'bg-cyber-yellow/20 text-cyber-yellow' : 'bg-holographic-blue/20 text-holographic-blue'
+                    }`}>
                     <AlertTriangle className="w-3.5 h-3.5" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className={`text-[10px] font-bold uppercase ${
-                      alert.type === 'critical' ? 'text-alert-red' :
-                      alert.type === 'warning' ? 'text-cyber-yellow' : 'text-holographic-blue'
-                    }`}>{alert.type}</div>
+                    <div className={`text-[10px] font-bold uppercase ${alert.type === 'critical' ? 'text-alert-red' :
+                        alert.type === 'warning' ? 'text-cyber-yellow' : 'text-holographic-blue'
+                      }`}>{alert.type}</div>
                     <div className="text-xs text-slate-200 leading-tight mt-0.5">{alert.message}</div>
                     <div className="text-[9px] text-slate-500 mt-1 flex items-center gap-2">
                       <span>{alert.time}</span>
